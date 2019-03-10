@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
 import Modal from 'react-modal';
 import { ToastContainer } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,12 +12,25 @@ import DevList from '../../components/DevList';
 import { Creators as DevActions } from '../../store/ducks/devs';
 
 import './style.css';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 Modal.setAppElement('#root');
 
 class Main extends Component {
+  static propTypes = {
+    addDevRequest: PropTypes.func.isRequired,
+    devs: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        avatar: PropTypes.string,
+      })),
+    }).isRequired,
+  }
+
   state = {
     viewport: {
       width: window.innerWidth,
@@ -115,11 +129,12 @@ class Main extends Component {
           className="modal"
           style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.3)' } }}
         >
-          <strong>Adicionar usuario</strong>
+          <strong>Adicionar novo usuario</strong>
           <form onSubmit={this.handleAddDev}>
             <input
+              // eslint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
-              placeholder="usuario git"
+              placeholder="Usuario no Github"
               value={devInput}
               onChange={e => this.setState({ devInput: e.target.value })}
             />

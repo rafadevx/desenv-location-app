@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { Creators as DevActions } from '../../store/ducks/devs';
@@ -27,7 +28,7 @@ const DevList = ({ devs, removeDev }) => (
               <strong>{dev.name || dev.login}</strong>
               <p>{dev.login}</p>
             </div>
-            <button type="button" onClick={() => removeDev(dev.id)}>
+            <button type="button" onClick={() => removeDev(dev)}>
               <i className="fa fa-minus-circle" />
             </button>
             <i className="fa fa-angle-right" aria-hidden="true" />
@@ -37,6 +38,16 @@ const DevList = ({ devs, removeDev }) => (
     </ul>
   </div>
 );
+
+DevList.propTypes = {
+  devs: PropTypes.shape({
+    id: PropTypes.number,
+    avatar: PropTypes.string,
+    name: PropTypes.string,
+    login: PropTypes.string,
+  }).isRequired,
+  removeDev: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
   devs: state.devs,

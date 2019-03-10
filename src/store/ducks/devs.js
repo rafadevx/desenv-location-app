@@ -34,12 +34,12 @@ export default function devs(state = INITIAL_STATE, action) {
       toast.error(action.payload.error);
       return { ...state, loading: false, error: action.payload.error };
     case Types.REMOVE:
-      toast.warn('Dev removido');
+      toast.warn(`Dev ${action.payload.dev.login} removido`);
       return {
         ...state,
         loading: false,
         error: null,
-        data: state.data.filter(dev => (dev.id !== action.payload.id)),
+        data: state.data.filter(dev => (dev.id !== action.payload.dev.id)),
       };
     default:
       return state;
@@ -66,9 +66,9 @@ export const Creators = {
     payload: { error },
   }),
 
-  removeDev: id => ({
+  removeDev: dev => ({
     type: Types.REMOVE,
-    payload: { id },
+    payload: { dev },
   }),
 
 };
