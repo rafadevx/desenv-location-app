@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 /*
   Types
 */
@@ -5,6 +6,7 @@ export const Types = {
   ADD_REQUEST: 'devs/ADD_REQUEST',
   ADD_SUCCESS: 'devs/ADD_SUCCESS',
   ADD_FAILURE: 'devs/ADD_FAILURE',
+  REMOVE: 'devs/REMOVE',
 };
 
 /*
@@ -21,6 +23,7 @@ export default function devs(state = INITIAL_STATE, action) {
     case Types.ADD_REQUEST:
       return { ...state, loading: true };
     case Types.ADD_SUCCESS:
+      toast.success('Dev adicionado');
       return {
         ...state,
         loading: false,
@@ -28,7 +31,16 @@ export default function devs(state = INITIAL_STATE, action) {
         data: [...state.data, action.payload.data],
       };
     case Types.ADD_FAILURE:
+      toast.error(action.payload.error);
       return { ...state, loading: false, error: action.payload.error };
+    case Types.REMOVE:
+      toast.warn('Dev removido');
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        data: state.data.filter(dev => (dev.id !== action.payload.id)),
+      };
     default:
       return state;
   }
@@ -52,6 +64,11 @@ export const Creators = {
   addDevFailure: error => ({
     type: Types.ADD_FAILURE,
     payload: { error },
+  }),
+
+  removeDev: id => ({
+    type: Types.REMOVE,
+    payload: { id },
   }),
 
 };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
 import Modal from 'react-modal';
+import { ToastContainer } from 'react-toastify';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,6 +12,7 @@ import { Creators as DevActions } from '../../store/ducks/devs';
 
 import './style.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 Modal.setAppElement('#root');
 
@@ -102,7 +104,7 @@ class Main extends Component {
               />
             </Marker>
           ))}
-
+          <ToastContainer autoClose={2000} />
         </MapGL>
 
         <DevList />
@@ -127,6 +129,7 @@ class Main extends Component {
             </div>
           </form>
         </Modal>
+
       </div>
     );
   }
