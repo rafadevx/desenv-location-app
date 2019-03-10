@@ -16,7 +16,7 @@ export function* addDev(action) {
     } else {
       const devData = {
         id: data.id,
-        name: data.full_name,
+        name: data.name,
         login: data.login,
         avatar: data.avatar_url,
         longitude: action.payload.local[0],

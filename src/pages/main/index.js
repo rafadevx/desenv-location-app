@@ -5,8 +5,11 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import DevList from '../../components/DevList';
+
 import { Creators as DevActions } from '../../store/ducks/devs';
 
+import './style.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 Modal.setAppElement('#root');
@@ -102,20 +105,26 @@ class Main extends Component {
 
         </MapGL>
 
+        <DevList />
+
         <Modal
           isOpen={isOpen}
           contentLabel="Teste"
+          className="modal"
           style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.3)' } }}
         >
           <strong>Adicionar usuario</strong>
           <form onSubmit={this.handleAddDev}>
             <input
+              autoFocus
               placeholder="usuario git"
               value={devInput}
               onChange={e => this.setState({ devInput: e.target.value })}
             />
-            <button type="submit">Adicionar</button>
-            <button type="button" onClick={this.handleCloseModal}>Close</button>
+            <div className="actions">
+              <button type="button" onClick={this.handleCloseModal}>Cancelar</button>
+              <button type="submit">Adicionar</button>
+            </div>
           </form>
         </Modal>
       </div>

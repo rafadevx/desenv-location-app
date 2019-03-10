@@ -1,0 +1,28 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  padding: 1em;
+  background: white;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal input {
+  margin: 1em 0;
+}
+
+.modal .actions {
+  display: flex;
+  justify-content: space-between;
+}
+.actions button {
+  width: 48%;
+  height: 2em;
+}
